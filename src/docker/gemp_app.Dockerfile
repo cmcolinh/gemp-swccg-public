@@ -15,7 +15,7 @@ RUN apk update; \
 	apk add --no-cache freetype; \
 	apk add --no-cache fontconfig; \
 	apk add --no-cache git; \
-	apk add --no-cache nano; 
+	apk add --no-cache vim;
 		
 		
 #####################################################################
@@ -23,7 +23,7 @@ RUN apk update; \
 # https://github.com/carlossg/docker-maven/blob/e545dcfa4d312e08330f4e07701763db3889db79/amazoncorretto-21/Dockerfile
 #####################################################################
 
-ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_HOME=/usr/share/maven
 
 COPY --from=maven:3.9.6-eclipse-temurin-11 ${MAVEN_HOME} ${MAVEN_HOME}
 COPY --from=maven:3.9.6-eclipse-temurin-11 /usr/local/bin/mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
@@ -33,7 +33,7 @@ RUN ln -s ${MAVEN_HOME}/bin/mvn /usr/bin/mvn
 
 ARG MAVEN_VERSION=3.9.6
 ARG USER_HOME_DIR="/root"
-ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+ENV MAVEN_CONFIG="$USER_HOME_DIR/.m2"
 
 # Enables the JRE remote debugging; perhaps comment this out in a production build
 #ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,address=*:8000,server=y,suspend=n
